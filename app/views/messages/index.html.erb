@@ -1,0 +1,10 @@
+
+<ul>
+<% @messages.each do |message| %>
+  <li>
+    <%= link_to message.content, message_path(message) %>
+   </li>
+<% end %>
+</ul>
+ 
+<%= link_to 'new message', new_message_path %>

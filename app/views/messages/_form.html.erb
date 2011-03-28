@@ -1,0 +1,9 @@
+<%= f.label :content, "Content" %>
+<%= f.text_area :content %>
+<% if @message.errors.any? %>
+      <ul>
+      <% @message.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+<% end %>

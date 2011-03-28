@@ -1,0 +1,5 @@
+<%= form_for @message, :url => messages_path do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f }%>
+	<%= f.submit "Create loh"%>
+<% end %>
+<%= render :partial => 'hello', :locals => {:name => "Chia"}%>
