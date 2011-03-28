@@ -1,5 +1,10 @@
 <%= form_for @message, :url => messages_path do |f| %>
 	<%= render :partial => 'form', :locals => { :f => f }%>
-	<%= f.submit "Create loh"%>
+	<%= f.submit "Comment"%>
 <% end %>
-<%= render :partial => 'hello', :locals => {:name => "Chia"}%>
+<%= @access_token %>
+<% userfile = @graph.get_object("me")%>
+<% userpage = "http://www.facebook.com/" + userfile["username"]%>
+<a href="<%= userpage %>"><%= userfile["name"] %></a>
+
+<img src="<%= @graph.get_picture("me") %>" />

@@ -34,6 +34,8 @@ GEM
       abstract (>= 1.0.0)
     i18n (0.5.0)
     json (1.5.1)
+    kaminari (0.10.4)
+      rails (>= 3.0.0)
     koala (0.10.0)
       json (>= 1.0)
     mail (2.2.15)
@@ -72,6 +74,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  kaminari
   koala
   rails (= 3.0.5)
   sqlite3

@@ -1,8 +1,12 @@
 
+<%= link_to 'Login FB', Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url) %>
+<%= paginate @messages %>
+
 <ul>
 <% @messages.each do |message| %>
   <li>
-    <%= link_to message.content, message_path(message) %>
+	<%= message.content %>
+    
    </li>
 <% end %>
 </ul>
