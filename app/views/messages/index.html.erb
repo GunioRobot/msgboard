@@ -6,6 +6,7 @@
 <% @messages.each do |message| %>
   <li>
 	<%= message.content %>
+	<%= link_to 'delete', message_path(message), :method => :delete %>
     
    </li>
 <% end %>

@@ -1,7 +1,6 @@
 class MessagesController < ApplicationController
-before_filter :find_message, :only => [ :show, :edit, :update]   
+before_filter :find_message, :only => [ :show, :edit, :update, :destroy]   
   def index
-    #@messages = Message.all 
     @messages = Message.page(params[:page]).per(5)
   end
   
@@ -11,12 +10,25 @@ before_filter :find_message, :only => [ :show, :edit, :update]
   def edit
   end
   
-  #delete
+  def destroy
+    flash[:note] = "message was successfully deleted"
+    @message.destroy
+    redirect_to :action => :index
+  end
   
   def create
-      flash[:notice] = "message was successfully created"
-      @message = Message.new(params[:message]) 
+      @user = session[:user]
+      if !@user
+        redirect_to :action => :new
+      end
+    
+      @message = @user.messages.new(params[:message]) 
+      # The same Please use above
+      #@message = Messaga.new(params[:message])
+      #@message.user = @user
+      
       if @message.save
+        flash[:notice] = "message was successfully created"
         redirect_to :action => messages_url(@message)
       else
         render :action => :new
@@ -34,17 +46,30 @@ before_filter :find_message, :only => [ :show, :edit, :update]
   end
   
   def new
-    if !params[:code]
-      redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url)
+    if !session[:access_token]
+      redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url)#go to fb then back
     end
     
     @message = Message.new
     
     session[:access_token] = Koala::Facebook::OAuth.new(new_message_url).get_access_token(params[:code]) if params[:code]
+    # TODO: Create user here 1. Find if facebook_id exists 2. if not, create user 
+    #                        3. update cached name 4. save user object to session
+    
     @access_token = session[:access_token]
-    @graph = Koala::Facebook::GraphAPI.new("#{@access_token}");
+    @graph = Koala::Facebook::GraphAPI.new("#{@access_token}")
+    userfile = @graph.get_object("me")
+    link = userfile["link"]
+    name = userfile["name"]
+    fbid = userfile["id"]
+    picture_url = @graph.get_picture("me")
+    
+    user = User.new({:link=>link, :name=>name, :picture_url=>picture_url, :facebook_id=>fbid})
+    user.save
+    session[:user] = user
     
   end
+  
   protected
   def find_message
     @message = Message.find(params[:id])
