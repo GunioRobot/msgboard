@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column  :facebook_id, :bigint
       t.timestamps
     end
+    add_index(:users, :facebook_id)
   end
 
   def self.down

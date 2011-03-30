@@ -1,15 +1,27 @@
 
 <%= link_to 'Login FB', Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url) %>
 <%= paginate @messages %>
-
-<ul>
+<table board="1">
 <% @messages.each do |message| %>
-  <li>
-	<%= message.content %>
-	<%= link_to 'delete', message_path(message), :method => :delete %>
-    
-   </li>
-<% end %>
-</ul>
+<% usrid = message.user_id %>
+<% user = User.find(usrid) if usrid%>
+	<tr>
+		<td>
+			<img src="<%= user.picture_url if usrid%>" />
+		</td>
+		<td>
+			<a href="<%= user.link if usrid %>"><%= user.name if usrid%></a>
+		</td>
+   	</tr>
+	<tr>
+		<td>
+			<%= message.content %>
+		</td>
+		<td>
+			<%= link_to 'delete', message_path(message), :method => :delete %>
+		</td>
+	</tr>	  
+  <% end %>
+</table>
  
 <%= link_to 'new message', new_message_path %>

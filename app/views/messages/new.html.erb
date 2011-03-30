@@ -3,7 +3,4 @@
 	<%= f.submit "Comment"%>
 <% end %>
 <%= @access_token %>
-<% userfile = @graph.get_object("me")%>
-<% userpage = "http://www.facebook.com/" + userfile["username"]%>
-<a href="<%= userpage %>"><%= userfile["name"] %></a>
-<img src="<%= @graph.get_picture("me") %>" />
+
