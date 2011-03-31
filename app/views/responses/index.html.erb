@@ -1,0 +1,13 @@
+<%= paginate @responses %>
+<ul>
+<% @responses.each do |response| %>
+  <li>
+    <%= response.content %>
+	<%= response.message_id%>
+    <%= link_to 'edit', edit_response_path(response) %>
+    <%= link_to 'delete', response_path(response), :method => :delete %>
+   </li>
+<% end %>
+</ul>
+
+<%= link_to 'reply', new_response_path%>

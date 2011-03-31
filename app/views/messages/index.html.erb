@@ -17,8 +17,17 @@
 		<td>
 			<%= message.content %>
 		</td>
+		
 		<td>
 			<%= link_to 'delete', message_path(message), :method => :delete %>
+			<%= link_to 'reply', new_response_path%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%= Response.where(:message_id => message.id).first.content if !(Response.where(:message_id => message.id) == [])%>
+		</td>
+		<td>
 		</td>
 	</tr>	  
   <% end %>

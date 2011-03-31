@@ -17,7 +17,7 @@ before_filter :check_session, :only => [:create]
     redirect_to :action => :index
   end
   
-  def create
+  def create #new->_form->submit->create
       @user = session[:user]
       if !@user
         redirect_to :action => :new
@@ -51,9 +51,7 @@ before_filter :check_session, :only => [:create]
     if !session[:access_token]
       redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url)#go to fb then back
     end    
-    if !session[:access_token]
-      redirect_to :action => :index
-    else
+    
       session[:access_token] = Koala::Facebook::OAuth.new(new_message_url).get_access_token(params[:code]) if params[:code]
       # TODO: Create user here 1. Find if facebook_id exists 2. if not, create user 
       #                        3. update cached name 4. save user object to session
@@ -80,8 +78,6 @@ before_filter :check_session, :only => [:create]
     
       user.save
       session[:user] = user
-
-    end
     
   end
   
