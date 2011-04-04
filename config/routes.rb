@@ -1,6 +1,13 @@
 Msgboard::Application.routes.draw do
-  resources :messages
+  #http://localhost:3000/messages/3/responses/new
+  #                              ^^:message_id
+  #rather than http://localhost:3000/responses/new
+  resources :messages do
+    resources :responses
+  end
+  
   resources :responses
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

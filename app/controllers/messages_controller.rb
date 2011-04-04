@@ -26,7 +26,7 @@ before_filter :check_session, :only => [:create]
       @message = @user.messages.new(params[:message]) 
       # The same Please use above
       #@message = Messaga.new(params[:message])
-      #@message.user = @user
+      #@message.user = @user 
       
       if @message.save
         flash[:notice] = "message was successfully created"
@@ -49,6 +49,7 @@ before_filter :check_session, :only => [:create]
   
   def new
     if !session[:access_token]
+      flash[:notice] = "!!"
       redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url)#go to fb then back
     end    
     

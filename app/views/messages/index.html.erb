@@ -19,17 +19,23 @@
 		</td>
 		
 		<td>
-			<%= link_to 'delete', message_path(message), :method => :delete %>
-			<%= link_to 'reply', new_response_path%>
+			<%= link_to 'delete msg', message_path(message), :method => :delete %>
+		<%if !message.response%>
+			<%= link_to 'reply', new_message_response_path(message) %>
+		<%end%>
 		</td>
 	</tr>
+	<% if message.response%>
 	<tr>
 		<td>
-			<%= Response.where(:message_id => message.id).first.content if !(Response.where(:message_id => message.id) == [])%>
+			<%= message.response.content%>
 		</td>
 		<td>
+			<%= link_to 'delete response', message.response, :method =>:delete%>
+			<%= link_to 'edit response', edit_response_url(message.response)%>
 		</td>
 	</tr>	  
+	<%end%>
   <% end %>
 </table>
  
