@@ -48,8 +48,9 @@ before_filter :check_session, :only => [:create]
   end
   
   def new
+    
+    #****If click new without login, it will fail. WHY??***
     if !session[:access_token]
-      flash[:notice] = "!!"
       redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => new_message_url)#go to fb then back
     end    
     

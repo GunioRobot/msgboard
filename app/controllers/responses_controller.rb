@@ -34,7 +34,7 @@ class ResponsesController < ApplicationController
   end
   
   def create
-		#@response = @message.response.new(params[:response])
+		
 		@message = Message.find(params[:message_id])
 		#@response = @message.response.new(params[:response]) #***why not work***
 		@response = Response.new(params[:response])
