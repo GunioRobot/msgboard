@@ -5,7 +5,7 @@ Msgboard::Application.routes.draw do
   resources :messages do
     resources :responses
   end
-  
+
   resources :responses
 
   # The priority is based upon order of creation:

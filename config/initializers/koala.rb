@@ -1,4 +1,4 @@
-# Monkey-patch in Facebook config so Koala knows to 
+# Monkey-patch in Facebook config so Koala knows to
 # automatically use Facebook settings from here if none are given
 
 module Facebook
@@ -14,9 +14,9 @@ Koala::Facebook::OAuth.class_eval do
         raise "application id and/or secret are not specified in the config" unless Facebook::APP_ID && Facebook::SECRET
         initialize_without_default_settings(Facebook::APP_ID.to_s, Facebook::SECRET.to_s, args.first)
       when 2, 3
-        initialize_without_default_settings(*args) 
+        initialize_without_default_settings(*args)
     end
-  end 
+  end
 
-  alias_method_chain :initialize, :default_settings 
+  alias_method_chain :initialize, :default_settings
 end

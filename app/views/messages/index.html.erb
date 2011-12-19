@@ -17,7 +17,7 @@
 		<td>
 			<%= message.content %>
 		</td>
-		
+
 		<td>
 			<%= link_to 'delete msg', message_path(message), :method => :delete %>
 		<%if !message.response%>
@@ -34,9 +34,9 @@
 			<%= link_to 'delete response', message.response, :method =>:delete%>
 			<%= link_to 'edit response', edit_response_url(message.response)%>
 		</td>
-	</tr>	  
+	</tr>
 	<%end%>
   <% end %>
 </table>
- 
+
 <%= link_to 'new message', new_message_path %>
